@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Year Countdown</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to bottom, #1e3c72, #2a5298);
+            color: white;
+            margin: 0;
+            text-align: center;
+        }
+        #countdown {
+            font-size: 2em;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="countdown">
+        <h1>Countdown to New Year</h1>
+        <p id="timer">Calculating...</p>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const now = new Date();
+            const nextYear = now.getFullYear() + 1;
+            const newYear = new Date(`January 1, ${nextYear} 00:00:00`);
+            const diff = newYear - now;
+
+            if (diff <= 0) {
+                document.getElementById('timer').textContent = "🎉 Happy New Year! 🎉";
+                clearInterval(intervalId);
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('timer').textContent = 
+                `${days} Days, ${hours} Hours, ${minutes} Minutes, ${seconds} Seconds`;
+        }
+
+        const intervalId = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call to display countdown immediately
+    </script>
+</body>
+</html>
